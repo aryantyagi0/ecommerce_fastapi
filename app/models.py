@@ -1,8 +1,19 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Text, func, Boolean
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Float,
+    ForeignKey,
+    DateTime,
+    Text,
+    func,
+    Boolean,
+)
 from sqlalchemy.orm import relationship
 from .database import Base
 
-# USER 
+
+# USER
 class User(Base):
     __tablename__ = "users"
 
@@ -20,9 +31,10 @@ class User(Base):
     cart = relationship("Cart", back_populates="user", uselist=False)
     reviews = relationship("Review", back_populates="user")
     wishlist_items = relationship("Wishlist", back_populates="user")
-    products = relationship("Product", back_populates="seller") 
+    products = relationship("Product", back_populates="seller")
 
-# ADDRESS 
+
+# ADDRESS
 class Address(Base):
     __tablename__ = "addresses"
 
@@ -36,7 +48,8 @@ class Address(Base):
 
     user = relationship("User", back_populates="addresses")
 
-# CATEGORY 
+
+# CATEGORY
 class Category(Base):
     __tablename__ = "categories"
 
@@ -46,7 +59,8 @@ class Category(Base):
 
     products = relationship("Product", back_populates="category")
 
-# PRODUCT 
+
+# PRODUCT
 class Product(Base):
     __tablename__ = "products"
 
@@ -56,16 +70,17 @@ class Product(Base):
     price = Column(Float, nullable=False)
     stock = Column(Integer, default=0)
     category_id = Column(Integer, ForeignKey("categories.id"))
-    seller_id = Column(Integer, ForeignKey("users.id"))  
+    seller_id = Column(Integer, ForeignKey("users.id"))
 
     category = relationship("Category", back_populates="products")
     reviews = relationship("Review", back_populates="product")
     order_items = relationship("OrderItem", back_populates="product")
     cart_items = relationship("CartItem", back_populates="product")
     wishlist_entries = relationship("Wishlist", back_populates="product")
-    seller = relationship("User", back_populates="products")  
+    seller = relationship("User", back_populates="products")
 
-# CART 
+
+# CART
 class Cart(Base):
     __tablename__ = "carts"
 
@@ -76,7 +91,8 @@ class Cart(Base):
     user = relationship("User", back_populates="cart")
     items = relationship("CartItem", back_populates="cart")
 
-# CART ITEM 
+
+# CART ITEM
 class CartItem(Base):
     __tablename__ = "cart_items"
 
@@ -87,6 +103,7 @@ class CartItem(Base):
 
     cart = relationship("Cart", back_populates="items")
     product = relationship("Product", back_populates="cart_items")
+
 
 # ORDER
 class Order(Base):
@@ -104,7 +121,8 @@ class Order(Base):
     payment = relationship("Payment", back_populates="order", uselist=False)
     shipment = relationship("Shipment", back_populates="order", uselist=False)
 
-# ORDER ITEM 
+
+# ORDER ITEM
 class OrderItem(Base):
     __tablename__ = "order_items"
 
@@ -117,7 +135,8 @@ class OrderItem(Base):
     order = relationship("Order", back_populates="items")
     product = relationship("Product", back_populates="order_items")
 
-# PAYMENT 
+
+# PAYMENT
 class Payment(Base):
     __tablename__ = "payments"
 
@@ -130,6 +149,7 @@ class Payment(Base):
 
     order = relationship("Order", back_populates="payment")
 
+
 # SHIPMENT
 class Shipment(Base):
     __tablename__ = "shipments"
@@ -141,6 +161,7 @@ class Shipment(Base):
     status = Column(String, default="preparing")
 
     order = relationship("Order", back_populates="shipment")
+
 
 # REVIEW
 class Review(Base):
@@ -156,6 +177,7 @@ class Review(Base):
     user = relationship("User", back_populates="reviews")
     product = relationship("Product", back_populates="reviews")
 
+
 # WISHLIST
 class Wishlist(Base):
     __tablename__ = "wishlists"
@@ -164,5 +186,5 @@ class Wishlist(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
 
-    user = relationship("User", back_populates="wishlist_items")  
+    user = relationship("User", back_populates="wishlist_items")
     product = relationship("Product", back_populates="wishlist_entries")
