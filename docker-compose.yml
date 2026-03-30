@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Mahiipl
+      POSTGRES_PASSWORD: Mahiipl9917
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
@@ -18,7 +18,7 @@ services:
       - "8000:8000"
     environment:
       PORT: "8000"
-      DATABASE_URL: "postgresql://postgres:Mahiipl@9917@db.vjdbzczvykhixdlagmsw.supabase.co:5432/postgres"
+      DATABASE_URL: "postgresql://postgres:Mahiipl9917@db.nugpynyrkmlsgdlwwerp.supabase.co:5432/postgres"
     depends_on:
       - db
     restart: always
