@@ -4,7 +4,7 @@ services:
     image: postgres:15
     restart: always
     environment:
-      POSTGRES_USER: postgres.nugpynyrkmlsgdlwwerp
+      POSTGRES_USER: postgres.vjdbzczvykhixdlagmsw
       POSTGRES_PASSWORD: Mahiipl9917
       POSTGRES_DB: postgres
     ports:
@@ -18,7 +18,7 @@ services:
       - "8000:8000"
     environment:
       PORT: "8000"
-      DATABASE_URL: "postgresql://postgres.nugpynyrkmlsgdlwwerp:Mahiipl9917@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
+      DATABASE_URL: "postgresql+psycopg2://postgres.vjdbzczvykhixdlagmsw:Mahiipl9917@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?sslmode=require"
     depends_on:
       - db
     restart: always
